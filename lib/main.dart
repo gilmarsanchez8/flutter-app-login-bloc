@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_login_bloc/src/pages/home_page.dart';
+import 'package:flutter_app_login_bloc/src/pages/login_page.dart';
  
 void main() => runApp(MyApp());
  
@@ -8,16 +10,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Material App Bar'),
-        ),
-        body: Center(
-          child: Container(
-            child: Text('Hello World'),
-          ),
-        ),
-      ),
+      initialRoute: 'login',
+      routes: {
+        'login' : (BuildContext context) => LoginPage(),
+        'home'  : (BuildContext context) => HomePage(),
+      },
     );
   }
 }
