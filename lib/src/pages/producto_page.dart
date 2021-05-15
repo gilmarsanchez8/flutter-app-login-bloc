@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_login_bloc/src/models/producto_model.dart';
+import 'package:flutter_app_login_bloc/src/providers/productos_provider.dart';
 import 'package:flutter_app_login_bloc/src/utils/utils.dart' as utils;
 
 class ProductoPage extends StatefulWidget {
@@ -11,6 +12,7 @@ class _ProductoPageState extends State<ProductoPage> {
   final formkey = GlobalKey<FormState>();
 
   ProductoModel producto = new ProductoModel();
+  final productoProvider = new ProductosProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +88,7 @@ class _ProductoPageState extends State<ProductoPage> {
         activeColor: Colors.red,
         onChanged: (value) => setState(() {
               producto.disponible = value;
-        })
-    );
+            }));
   }
 
   Widget _crearBoton() {
@@ -105,5 +106,10 @@ class _ProductoPageState extends State<ProductoPage> {
     if (!formkey.currentState.validate()) return;
 
     formkey.currentState.save();
+
+    print(producto.titulo);
+    print(producto.valor);
+    print(producto.disponible);
+    productoProvider.crearProducto(producto);
   }
 }
