@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_login_bloc/src/bloc/login_bloc.dart';
 import 'package:flutter_app_login_bloc/src/bloc/provider.dart';
 import 'package:flutter_app_login_bloc/src/providers/usuario_provider.dart';
+import 'package:flutter_app_login_bloc/src/utils/utils.dart';
 
 class RegistroPage extends StatelessWidget {
   final usuarioProvider = new UsuarioProvider();
@@ -168,7 +169,13 @@ class RegistroPage extends StatelessWidget {
     );
   }
 
-  _register(LoginBLoc bloc, BuildContext context) {
-    usuarioProvider.nuevoUsuario(bloc.email, bloc.password);
+  _register(LoginBLoc bloc, BuildContext context) async{
+    final info = await usuarioProvider.nuevoUsuario(bloc.email, bloc.password);
+
+    if (info['OK']) {
+      Navigator.pushReplacementNamed(context, 'home');
+    } else {
+      mostrarAlerta(context, info['mensaje']);
+    }
   }
 }
