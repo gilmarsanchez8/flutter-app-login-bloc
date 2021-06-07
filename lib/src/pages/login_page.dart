@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_login_bloc/src/bloc/login_bloc.dart';
 import 'package:flutter_app_login_bloc/src/bloc/provider.dart';
+import 'package:flutter_app_login_bloc/src/providers/usuario_provider.dart';
 
 class LoginPage extends StatelessWidget {
+  final usuarioProvider = new UsuarioProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +98,8 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           FlatButton(
-            onPressed: () => Navigator.pushReplacementNamed(context, 'registro'), 
+            onPressed: () =>
+                Navigator.pushReplacementNamed(context, 'registro'),
             child: Text('Crear una cuenta'),
           ),
           SizedBox(height: 100.0),
@@ -167,6 +170,7 @@ class LoginPage extends StatelessWidget {
   }
 
   _login(LoginBLoc bloc, BuildContext context) {
-    Navigator.pushReplacementNamed(context, 'home');
+    usuarioProvider.login(bloc.email, bloc.password);
+    //Navigator.pushReplacementNamed(context, 'home');
   }
 }
